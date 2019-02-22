@@ -77,10 +77,27 @@ Lakukan backup file syslog setiap jam dengan format nama file “jam:menit tangg
 a. Huruf b adalah alfabet kedua, sedangkan saat ini waktu menunjukkan pukul 12, sehingga huruf b diganti dengan huruf alfabet yang memiliki urutan ke 12+2 = 14. b. Hasilnya huruf b menjadi huruf n karena huruf n adalah huruf ke empat belas, dan seterusnya. c. setelah huruf z akan kembali ke huruf a d. Backup file syslog setiap jam. e. dan buatkan juga bash script untuk dekripsinya.
 Jawab : 
 Buat scriptnya seperti dibawah ini
+#!/bin/bash
+
+lowerCase=(a b c d e f g h i j k l m n o p q r s t u v w x y z)
+upperCase=(A B C D E F G H I J K L M N O P Q R S T U V W X Y Z)
+tanggal=`date +"%d"`
+bulan=`date +"%m"`
+tahun=`date +"%Y"`
+jam=`date +"%H"`
+menit=`date +"%M"`
+
+home="/home/shafewa/Documents/sisop/soal4"
+namafile="$home/$jam:$menit $tanggal-$bulan-$tahun.txt"
+
+bawah=${lowerCase[$jam]}
+atas=${upperCase[$jam]}
+
+cat "/var/log/syslog" | tr '[a-z]' "[$bawah-za-$bawah]" | tr '[A-Z]' "[$atas-ZA$
 
 Lalu buat crontab -e dan tambahkan perintah dibawah ini
+@hourly /bin/bash /home/shafewa/Documents/sisop/soal4/soal4.sh >> /home/shafewa/Documents/sisop/soal4/soal4.log 2>&1
 
-dan hasil enskripsinya
 
 Nomor 5
 
